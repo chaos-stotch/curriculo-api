@@ -3,32 +3,55 @@ const express = require('express');
 const router = express.Router();
 
 const curriculumController = require("./controllers/curriculumController");
+const usersController = require("./controllers/usersController");
+const commomMiddler = require("./middlewares/commomMiddlewares");
 const curriculumMiddler = require("./middlewares/curriculumMiddlewares");
+const usersMiddler = require("./middlewares/usersMiddlewares");
 
-router.get('/tests', curriculumMiddler.validateBody, curriculumController.tests);
+/*----------------curriculums----------------*/
+router.get('/getAllCurriculums', curriculumController.getAll);
 
 router.get('/getCurriculums',
-    curriculumMiddler.validateBody,
-    curriculumMiddler.validateUserId,
+    commomMiddler.validateBody,
+    commomMiddler.validateUserId,
     curriculumController.getCurriculums);
 
 router.post('/createCurriculum', 
-    curriculumMiddler.validateBody,
+    commomMiddler.validateBody,
     curriculumMiddler.validateCreateCurriculum, 
-    curriculumMiddler.validateUserId, 
+    commomMiddler.validateUserId, 
     curriculumController.createCurriculums);
 
 router.put('/updateCurriculum',
-    curriculumMiddler.validateBody,
+    commomMiddler.validateBody,
     curriculumMiddler.validateCurriculumExists, 
-    curriculumMiddler.validateUserId, 
+    commomMiddler.validateUserId, 
     curriculumMiddler.validateUpdateCurriculum, 
     curriculumController.updateCurriculum);
 
 router.delete('/deleteCurriculum', 
-    curriculumMiddler.validateBody,
+    commomMiddler.validateBody,
     curriculumMiddler.validateCurriculumExists, 
-    curriculumMiddler.validateUserId, 
+    commomMiddler.validateUserId, 
     curriculumController.deleteCurriculum);
+
+/*----------------users----------------*/
+router.get('/getAllUsers', usersController.getAll)
+
+router.post('/createUser', 
+    commomMiddler.validateBody,
+    usersMiddler.validateCreateUser,
+    usersController.createUser);
+
+router.put('/updateUser',
+    commomMiddler.validateBody,
+    commomMiddler.validateUserId,
+    usersMiddler.validateCreateUser,
+    usersController.updateUser);
+
+router.delete('/deleteUser', 
+    commomMiddler.validateBody,
+    commomMiddler.validateUserId, 
+    usersController.deleteUser);
 
 module.exports = router;

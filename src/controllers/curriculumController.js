@@ -1,7 +1,7 @@
 const curriculumModels = require('../models/curriculumModels')
 const curriculumMiddler = require("../middlewares/curriculumMiddlewares");
 
-const tests = async(_req, res) => {
+const getAll = async(_req, res) => {
     const curriculum = await curriculumModels.getAll();
     return res.status(200).json(curriculum);
 };
@@ -47,7 +47,7 @@ const updateCurriculum = async(req, res) => {
 }
 
 module.exports = {
-    tests,
+    getAll,
     getCurriculums,
     createCurriculums,
     deleteCurriculum,
