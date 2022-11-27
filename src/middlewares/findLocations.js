@@ -1,11 +1,12 @@
 const fs = require("fs");
+var path = require('path');
 
 const findLocation = async(city, state, country) => {
     var finded_city = "NULL"
     var finded_state = "NULL"
     var finded_country = "NULL"
 
-    return new Promise(function (resolve, reject) {fs.readFile("./myTests/cities.json", function(err, data) {
+    return new Promise(function (resolve, reject) {fs.readFile(path.join(__dirname, 'cities.json'), function(err, data) {
         if (err) throw err;
 
         const cities = JSON.parse(data);
