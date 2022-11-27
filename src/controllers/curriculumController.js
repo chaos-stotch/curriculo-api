@@ -42,9 +42,9 @@ const deleteCurriculum = async(req, res) => {
 
 const updateCurriculum = async(req, res) => {
     const {body} = req
-    localization = undefined
+    var localization = undefined
     if(body.localization !== undefined) {
-        const localization = await curriculumMiddler.validateLocalization(body)
+        localization = await curriculumMiddler.validateLocalization(body)
         if(localization.country === 'NULL') {
             return res.status(400).json({message: "location not found"});
         }

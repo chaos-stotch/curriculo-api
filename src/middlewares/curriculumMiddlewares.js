@@ -59,6 +59,9 @@ const validateLocalization = async(body) => {
 
 const validateCurriculumExists = async(req, res, next) => {
     const {body} = req;
+    if(body.id === undefined){
+        return res.status(400).json({message:'the field id is required'});
+    }
     const connection = new pg.Client(config);
     await connection.connect();
     const db_data = await connection.query(`SELECT userId FROM curriculum WHERE id=${body.id}`);
