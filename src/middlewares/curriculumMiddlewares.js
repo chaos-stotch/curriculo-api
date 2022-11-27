@@ -59,12 +59,18 @@ const validateLocalization = async(body) => {
 
 const validateCurriculumExists = async(req, res, next) => {
     const {body} = req;
+    if(body.id === ''){
+        return res.status(400).json({message:'id cannot be empty'});
+    }
     if(body.id === undefined){
         return res.status(400).json({message:'the field id is required'});
     }
+    if(isNaN(body.id)){
+        return res.status(400).json({message:'invalid id'});
+    }
     const connection = new pg.Client(config);
     await connection.connect();
-    const db_data = await connection.query(`SELECT userId FROM curriculum WHERE id=${body.id}`);
+    const db_data = await connection.query(`SELECT * FROM curriculum WHERE id=${body.id}`);
     const UID = db_data.rows;
     await connection.end();
     if(UID.length === 0){

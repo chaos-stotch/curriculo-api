@@ -3,11 +3,14 @@ const pg = require('pg');
 
 const validateUserId = async(req, res, next) => {
     const {body} = req;
-    if(body.userId === undefined){
+    if(body.userId === undefined) {
         return res.status(400).json({message:'the field userId is required'});
     }
-    if(body.userId === ''){
+    if(body.userId === '') {
         return res.status(400).json({message:'userId cannot be empty'});
+    }
+    if(isNaN(body.userId)) {
+        return res.status(400).json({message:'invalid userId'});
     }
     const connection = new pg.Client(config);
     await connection.connect();
