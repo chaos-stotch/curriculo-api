@@ -70,7 +70,7 @@ const updateCurriculum = async(curriculum) => {
     }
     if(curriculum.localization !== undefined) {
         await connection.query(`UPDATE curriculum
-            SET localization = '${curriculum.localization}'
+            SET localization = '{"${curriculum.localization.country}", "${curriculum.localization.state}", "${curriculum.localization.city}"}'
             WHERE id = '${curriculum.id}'`)
     }
     await connection.end();

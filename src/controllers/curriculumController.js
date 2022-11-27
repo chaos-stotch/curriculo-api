@@ -24,7 +24,7 @@ const createCurriculums = async(req, res) => {
         "userId":body.userId,
         "title":body.title,
         "category":body.category,
-        "dateYear":body.dateyear,
+        "dateYear":body.dateYear,
         "institution":body.institution,
         "localization":localization
     };
@@ -42,7 +42,23 @@ const deleteCurriculum = async(req, res) => {
 
 const updateCurriculum = async(req, res) => {
     const {body} = req
-    await curriculumModels.updateCurriculum(body)
+    localization = undefined
+    if(body.localization !== undefined) {
+        const localization = await curriculumMiddler.validateLocalization(body)
+        if(localization.country === 'NULL') {
+            return res.status(400).json({message: "location not found"});
+        }
+    }
+    const newCurriculum = {
+        "userId":body.userId,
+        "id": body.id,
+        "title":body.title,
+        "category":body.category,
+        "dateYear":body.dateYear,
+        "institution":body.institution,
+        "localization":localization
+    };
+    await curriculumModels.updateCurriculum(newCurriculum)
     return res.status(200).json({message: "curriculum updated"});
 }
 

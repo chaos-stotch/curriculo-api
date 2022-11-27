@@ -34,8 +34,10 @@ const validateCreateCurriculum = async(req, res, next) => {
             return res.status(400).json({message:'typo in category'});
         };
     };
+    if(body.dateYear.length != 4 || isNaN(body.dateYear)) {
+        return res.status(400).json({message:'invalid year format'});
+    }
     next();
-
 };
 
 const validateLocalization = async(body) => {
@@ -88,6 +90,11 @@ const validateUpdateCurriculum = async(req, res, next) => {
             return res.status(400).json({message:'typo in category'});
         };
     };
+    if(body.dateYear !== undefined) {
+        if(body.dateYear.length != 4 || isNaN(body.dateYear)) {
+            return res.status(400).json({message:'invalid year format'});
+        }
+    }
     next();
 };
 
