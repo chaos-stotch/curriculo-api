@@ -37,6 +37,10 @@ router.delete('/curriculums/delete',
     curriculumMiddler.validatePermission,
     curriculumController.deleteCurriculum);
 
+router.get('/curriculums/categories',
+    curriculumController.getCategories
+    );
+
 /*----------------users----------------*/
 router.get('/users', usersController.getAll)
 

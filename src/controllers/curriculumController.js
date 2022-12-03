@@ -60,10 +60,15 @@ const updateCurriculum = async(req, res) => {
     return res.status(200).json({message: "curriculum updated"});
 }
 
+const getCategories = async(req, res) => {
+    return res.status(400).json({categories: ['individual', 'coletiva', 'especial', 'publica', 'premios', 'residenciais']});
+}
+
 module.exports = {
     getAll,
     getCurriculums,
     createCurriculums,
     deleteCurriculum,
-    updateCurriculum
+    updateCurriculum,
+    getCategories
 };
