@@ -2,18 +2,21 @@ const config = require('../models/connection');
 const pg = require('pg');
 
 const validateUserId = async(req, res, next) => {
-    const { id } = req.params
+    const { body } = req;
+    const userid = body.userid;
+    const regexExp = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
 
-    if(isNaN(id)) {
-        return res.status(400).json({message:'invalid userId'});
+    const isValidUUID = regexExp.test(userid);
+    if(!isValidUUID) {
+        return res.status(400).json({message:'invalid userid'});
     }
     const connection = new pg.Client(config);
     await connection.connect();
-    const db_data = await connection.query(`SELECT username FROM users WHERE userid=${id}`);
+    const db_data = await connection.query(`SELECT username FROM users WHERE userid='${userid}'`);
     const userIDExists = db_data.rows;
     await connection.end();
     if(userIDExists.length === 0){
-        return res.status(400).json({message:'the userId does not exist'});
+        return res.status(400).json({message:'the userid does not exist'});
     }
     next();
 };

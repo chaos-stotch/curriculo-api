@@ -7,20 +7,21 @@ const getAll = async(req, res) => {
 
 const createUser = async(req, res) => {
     const {body} = req;
-    await usersModels.createUser(body);
+    const username = body.username;
+    await usersModels.createUser(username);
     return res.status(200).json({message: "user created"});
 };
 
 const deleteUser = async(req, res) => {
-    const {id} = req.params;
-    await usersModels.deleteUser(id);
+    const {body} = req;
+    const userid = body.userid
+    await usersModels.deleteUser(userid);
     return res.status(200).json({message: "user deleted"});
 };
 
 const updateUser = async(req, res) => {
-    const {id} = req.params;
     const {body} = req;
-    await usersModels.updateUser(id, body);
+    await usersModels.updateUser(body.userid, body.username.trim());
     return res.status(200).json({message: "user updated"});
 }
 

@@ -7,8 +7,8 @@ const getAll = async(_req, res) => {
 };
 
 const getCurriculums = async(req, res) => {
-    const {id} = req.params;
-    const curriculum = await curriculumModels.getCurriculums(id);
+    const {userid} = req.body;
+    const curriculum = await curriculumModels.getCurriculums(userid);
     return res.status(200).json(curriculum);
 };
 
@@ -19,7 +19,7 @@ const createCurriculums = async(req, res) => {
         return res.status(400).json({message: "location not found"});
     }
     const newCurriculum = {
-        "userId":body.userId,
+        "userId":body.userid,
         "title":body.title,
         "category":body.category,
         "dateYear":body.dateYear,

@@ -10,27 +10,28 @@ const getAll = async() => {
     return allUsers;
 }
 
-const createUser = async(curriculum) => {
+const createUser = async(username) => {
     const connection = new pg.Client(config);
     await connection.connect();
     await connection.query(`INSERT INTO users (username) 
-        VALUES ('${curriculum.userName}');`)
+        VALUES ('${username}');`)
     connection.end()
 };
 
-const deleteUser = async(id) => {
+const deleteUser = async(userid) => {
     const connection = new pg.Client(config);
     await connection.connect();
-    await connection.query(`DELETE FROM users WHERE userid = ${id}`)
+    await connection.query(`DELETE FROM users WHERE userid = '${userid}'`)
     connection.end()
 }
 
-const updateUser = async(id, curriculum) => {
+const updateUser = async(userid, username) => {
     const connection = new pg.Client(config);
     await connection.connect();
     await connection.query(`UPDATE users
-        SET username = '${curriculum.userName}'
-        WHERE userid = '${id}'`);
+        SET username = '${username}'
+        WHERE userid = '${userid}'`);
+    connection.end()
 }
 
 module.exports = {

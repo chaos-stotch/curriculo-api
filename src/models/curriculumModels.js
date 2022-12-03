@@ -10,11 +10,11 @@ const getAll = async () => {
     return curriculums;
 };
 
-const getCurriculums = async (userId) => {
+const getCurriculums = async (userid) => {
     const connection = new pg.Client(config);
     await connection.connect();
-    const db_data = await connection.query(`SELECT * FROM curriculum WHERE userid=${userId}`);
-    const curriculums = await db_data.rows;
+    const db_data = await connection.query(`SELECT * FROM curriculum WHERE userid='${userid}'`);
+    const curriculums = db_data.rows;
     await connection.end();
     return curriculums;
 };
