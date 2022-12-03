@@ -9,48 +9,46 @@ const curriculumMiddler = require("./middlewares/curriculumMiddlewares");
 const usersMiddler = require("./middlewares/usersMiddlewares");
 
 /*----------------curriculums----------------*/
-router.get('/getAllCurriculums', curriculumController.getAll);
+router.get('/curriculums', curriculumController.getAll);
 
-router.get('/getCurriculums',
-    commomMiddler.validateBody,
+router.get('/curriculums/get/:id',
     commomMiddler.validateUserId,
     curriculumController.getCurriculums);
 
-router.post('/createCurriculum', 
+router.post('/curriculums/create', 
     commomMiddler.validateBody,
     curriculumMiddler.validateCreateCurriculum, 
     commomMiddler.validateUserId, 
     curriculumController.createCurriculums);
 
-router.put('/updateCurriculum',
+router.put('/curriculums/update',
     commomMiddler.validateBody,
     curriculumMiddler.validateCurriculumExists, 
     commomMiddler.validateUserId, 
     curriculumMiddler.validateUpdateCurriculum, 
     curriculumController.updateCurriculum);
 
-router.delete('/deleteCurriculum', 
+router.delete('/curriculums/delete', 
     commomMiddler.validateBody,
     curriculumMiddler.validateCurriculumExists, 
     commomMiddler.validateUserId, 
     curriculumController.deleteCurriculum);
 
 /*----------------users----------------*/
-router.get('/getAllUsers', usersController.getAll)
+router.get('/users', usersController.getAll)
 
-router.post('/createUser', 
+router.post('/users/create', 
     commomMiddler.validateBody,
     usersMiddler.validateCreateUser,
     usersController.createUser);
 
-router.put('/updateUser',
+router.put('/users/update/:id',
     commomMiddler.validateBody,
     commomMiddler.validateUserId,
     usersMiddler.validateCreateUser,
     usersController.updateUser);
 
-router.delete('/deleteUser', 
-    commomMiddler.validateBody,
+router.delete('/users/delete/:id', 
     commomMiddler.validateUserId, 
     usersController.deleteUser);
 

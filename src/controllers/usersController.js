@@ -1,31 +1,26 @@
 const usersModels = require('../models/usersModels')
-const config = require('../models/connection');
-const pg = require('pg');
 
 const getAll = async(req, res) => {
-    const connection = new pg.Client(config);
-    await connection.connect();
-    const db_data = await connection.query(`SELECT * FROM users`);
-    const allUsers = db_data.rows;
-    await connection.end();
+    allUsers = await usersModels.getAll()
     return res.status(200).json(allUsers);
 };
 
 const createUser = async(req, res) => {
     const {body} = req;
-    usersModels.createUser(body);
+    await usersModels.createUser(body);
     return res.status(200).json({message: "user created"});
 };
 
-const deleteUser = async( req, res) => {
-    const {body} = req;
-    usersModels.deleteUser(body.userId)
+const deleteUser = async(req, res) => {
+    const {id} = req.params;
+    await usersModels.deleteUser(id);
     return res.status(200).json({message: "user deleted"});
 };
 
 const updateUser = async(req, res) => {
+    const {id} = req.params;
     const {body} = req;
-    usersModels.updateUser(body)
+    await usersModels.updateUser(id, body);
     return res.status(200).json({message: "user updated"});
 }
 

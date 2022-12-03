@@ -7,10 +7,8 @@ const getAll = async(_req, res) => {
 };
 
 const getCurriculums = async(req, res) => {
-    const {body} = req;
-    const userId = body.userId;
-    const curriculum = await curriculumModels.getCurriculums(userId);
-
+    const {id} = req.params;
+    const curriculum = await curriculumModels.getCurriculums(id);
     return res.status(200).json(curriculum);
 };
 
