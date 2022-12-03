@@ -107,9 +107,27 @@ const validateUpdateCurriculum = async(req, res, next) => {
     next();
 };
 
+const validatePermission = async(req, res, next) => {
+    const {body} = req;
+    userid = body.userid
+    const id = body.id
+
+    const connection = new pg.Client(config);
+    await connection.connect();
+    const dbData = await connection.query(`SELECT userid FROM curriculum WHERE id='${id}'`);
+    const [ownerId] = dbData.rows;
+    await connection.end();
+    if(ownerId["userid"] != userid) {
+        return res.status(401).json({message:'unauthorized'});
+    }
+
+    next();
+}
+
 module.exports = {
     validateCreateCurriculum,
     validateCurriculumExists,
     validateUpdateCurriculum,
-    validateLocalization
+    validateLocalization,
+    validatePermission
 };

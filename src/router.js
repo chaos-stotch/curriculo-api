@@ -27,12 +27,14 @@ router.put('/curriculums/update',
     curriculumMiddler.validateCurriculumExists, 
     commomMiddler.validateUserId,
     curriculumMiddler.validateUpdateCurriculum, 
+    curriculumMiddler.validatePermission,
     curriculumController.updateCurriculum);
 
 router.delete('/curriculums/delete', 
     commomMiddler.validateBody,
     curriculumMiddler.validateCurriculumExists, 
     commomMiddler.validateUserId, 
+    curriculumMiddler.validatePermission,
     curriculumController.deleteCurriculum);
 
 /*----------------users----------------*/

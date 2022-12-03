@@ -12,8 +12,8 @@ const validateUserId = async(req, res, next) => {
     }
     const connection = new pg.Client(config);
     await connection.connect();
-    const db_data = await connection.query(`SELECT username FROM users WHERE userid='${userid}'`);
-    const userIDExists = db_data.rows;
+    const dbData = await connection.query(`SELECT username FROM users WHERE userid='${userid}'`);
+    const userIDExists = dbData.rows;
     await connection.end();
     if(userIDExists.length === 0){
         return res.status(400).json({message:'the userid does not exist'});
