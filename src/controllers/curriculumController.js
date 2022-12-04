@@ -28,14 +28,14 @@ const createCurriculums = async(req, res) => {
     };
     await curriculumModels.createCurriculum(newCurriculum);
 
-    return res.status(200).json({message: "curriculum created"});
+    return res.status(200).json({message: "register created"});
 };
 
 const deleteCurriculum = async(req, res) => {
     const {body} = req
     const id = body.id
     await curriculumModels.deleteCurriculum(id)
-    return res.status(200).json({message: "curriculum deleted"});
+    return res.status(200).json({message: "register deleted"});
 }
 
 const updateCurriculum = async(req, res) => {
@@ -57,7 +57,7 @@ const updateCurriculum = async(req, res) => {
         "localization":localization
     };
     await curriculumModels.updateCurriculum(newCurriculum)
-    return res.status(200).json({message: "curriculum updated"});
+    return res.status(200).json({message: "register updated"});
 }
 
 const getCategories = async(req, res) => {
